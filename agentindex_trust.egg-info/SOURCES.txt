@@ -1,0 +1,13 @@
+README.md
+setup.py
+agentindex_trust/__init__.py
+agentindex_trust/cache.py
+agentindex_trust/cli.py
+agentindex_trust/core.py
+agentindex_trust/knowledge.py
+agentindex_trust.egg-info/PKG-INFO
+agentindex_trust.egg-info/SOURCES.txt
+agentindex_trust.egg-info/dependency_links.txt
+agentindex_trust.egg-info/entry_points.txt
+agentindex_trust.egg-info/requires.txt
+agentindex_trust.egg-info/top_level.txt
