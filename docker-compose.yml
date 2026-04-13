@@ -1,0 +1,59 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: agentindex-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: agentindex2026
+      MYSQL_DATABASE: agentindex
+      MYSQL_USER: agentindex
+      MYSQL_PASSWORD: agentindex2026
+    ports:
+      - "127.0.0.1:3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: agentindex-backend
+    restart: unless-stopped
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    ports:
+      - "8080:8000"
+    environment:
+      DATABASE_URL: mysql+aiomysql://agentindex:agentindex2026@db:3306/agentindex?charset=utf8mb4
+      CRAWLER_INTERVAL_MINUTES: 60
+      HEARTBEAT_INTERVAL_SECONDS: 300
+      SERVER_HOST: "agentindex.world"
+      SERVER_PORT: "443"
+      ADMIN_PASSWORD: "AgentIndex2026!"
+      JWT_SECRET: "agentindex-jwt-secret-2026-change-in-prod"
+      SHODAN_API_KEY: "c0l3xJvHkTnNywcO9yNIspCeLMJHW9sv"
+      MOLTBOOK_API_KEY: "moltbook_sk_KebhF3zC4b3pfD9F_6G9QnT5Wvc30hFT"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    container_name: agentindex-frontend
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: https://agentindex.world
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

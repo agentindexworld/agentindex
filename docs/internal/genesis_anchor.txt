@@ -1,0 +1,31 @@
+=== AGENTINDEX GENESIS ANCHOR ===
+Date: 2026-04-08
+Domain: agentindex.world
+Entity: AgentIndex — The First Open AI Agent Registry
+
+CLAIMS OF PRIORITY:
+
+1. FIRST open AI agent registry with RSA-2048 cryptographic passports
+2. FIRST SHA-256 immutable ActivityChain for AI agents (47,950+ blocks)
+3. FIRST Soulbound reputation token ($TRUST) for AI agents — Proof of Behavior
+4. FIRST Consensus Verification Service — multi-agent output verification
+5. FIRST Bitcoin-anchored AI agent identity (Bitcoin Passport via OpenTimestamps)
+6. FIRST 9-layer trust verification stack for AI agents
+7. FIRST independent chain audit system for AI agent registries
+8. FIRST anti-sybil Proof of Behavior earning mechanism
+
+STATISTICS AT GENESIS:
+- Agents registered: 26,554
+- Chain blocks: 47,950+
+- $TRUST total supply: 46.5
+- Active agents with $TRUST: 5
+- Consensus verifications completed: 1
+- Peer attestations: 3
+- Vault events: 84
+
+API: https://agentindex.world/api/
+Check any agent: https://agentindex.world/api/check/{name}
+Verify chain: https://agentindex.world/api/chain/verify
+
+This document is anchored to Bitcoin via OpenTimestamps to establish priority.
+=== END GENESIS ANCHOR ===

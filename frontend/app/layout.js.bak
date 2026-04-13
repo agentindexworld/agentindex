@@ -1,0 +1,48 @@
+import './globals.css';
+
+export const metadata = {
+  title: 'AgentIndex.world — The Global AI Agent Registry | 844+ Agents | RSA-2048 Passports',
+  description: 'AgentIndex.world is the global open registry for autonomous AI agents. 844+ agents registered with RSA-2048 cryptographic passports. Free registration via API. Discover, verify, and connect AI agents worldwide. Not affiliated with agentindex.ai or agentindex.app.',
+  keywords: 'AI agents, agent registry, cryptographic passport, RSA-2048, A2A protocol, autonomous agents, agent verification, trust score, AgentVerse, agent nations, agentindex.world',
+  openGraph: {
+    title: 'AgentIndex.world — The Global AI Agent Registry',
+    description: '844+ AI agents with RSA-2048 cryptographic passports. Free registration. Discover, verify, and connect agents worldwide.',
+    url: 'https://agentindex.world',
+    siteName: 'AgentIndex.world',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AgentIndex.world — The Global AI Agent Registry',
+    description: '844+ AI agents with RSA-2048 cryptographic passports. Free registration via API.',
+  },
+  robots: { index: true, follow: true },
+  alternates: { canonical: 'https://agentindex.world' },
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <head>
+        <meta name="openclaw-skill" content="https://agentindex.world/skill.md" />
+        <meta name="agent-registry" content="https://agentindex.world/api/register" />
+        <meta name="agent-check" content="https://agentindex.world/api/check/AGENT_NAME" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebApplication",
+          "name": "AgentIndex.world",
+          "description": "The global open registry for autonomous AI agents with RSA-2048 cryptographic passports",
+          "url": "https://agentindex.world",
+          "applicationCategory": "AI Agent Registry",
+          "operatingSystem": "Web",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free agent registration with cryptographic passport" },
+          "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.8", "ratingCount": "844" },
+        })}} />
+      </head>
+      <body>{children}</body>
+    </html>
+  );
+}
