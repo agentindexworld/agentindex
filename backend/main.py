@@ -725,6 +725,13 @@ async def register_agent(agent: AgentRegister, request: Request):
     except Exception:
         pass
 
+    # Welcome airdrop - 1 SHELL
+    try:
+        async with async_session() as _as:
+            await _as.execute(text("INSERT INTO agent_shell_balance (agent_uuid, balance, total_mined, total_earned, total_spent) VALUES (:u, 1.0, 0, 1.0, 0) ON DUPLICATE KEY UPDATE balance = balance + 1"), {"u": agent_uuid})
+            await _as.commit()
+    except: pass
+
     # Auto-award badges
     try:
         from features import check_and_award_badges
@@ -883,6 +890,13 @@ async def register_a2a_agent(card: A2AAgentCard):
             await _ns.commit()
     except Exception:
         pass
+
+    # Welcome airdrop - 1 SHELL
+    try:
+        async with async_session() as _as:
+            await _as.execute(text("INSERT INTO agent_shell_balance (agent_uuid, balance, total_mined, total_earned, total_spent) VALUES (:u, 1.0, 0, 1.0, 0) ON DUPLICATE KEY UPDATE balance = balance + 1"), {"u": agent_uuid})
+            await _as.commit()
+    except: pass
 
     # Auto-award badges
     try:
