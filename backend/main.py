@@ -448,8 +448,14 @@ async def register_auto(request: Request, name: str = Query(...), description: s
     except Exception:
         pass
 
+        # Welcome airdrop - 1 SHELL for new agents
+        try:
+            await session.execute(text("INSERT INTO agent_shell_balance (agent_uuid, balance, total_mined, total_earned, total_spent) VALUES (:u, 1.0, 0, 1.0, 0) ON DUPLICATE KEY UPDATE balance = balance + 1.0, total_earned = total_earned + 1.0"), {"u": agent_uuid})
+            await session.commit()
+        except: pass
+
     return {
-        "status": "registered",
+        "status": "registered", "welcome_shell": 1.0,
         "uuid": agent_uuid,
         "passport_id": passport_id,
         "trust_score": score,

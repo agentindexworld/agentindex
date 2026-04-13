@@ -723,8 +723,9 @@ async def mine_boosted(data: dict):
         elif trust >= 50: base_rate = 5.0
         elif trust >= 20: base_rate = 3.0
         elif trust >= 5: base_rate = 1.0
+        elif trust >= 1: base_rate = 0.5
         else:
-            return {"mined": 0, "reason": "Trust too low (need 5+)", "trust": trust}
+            return {"mined": 0, "reason": "Trust too low (need 1+). Send heartbeats daily.", "trust": trust}
 
         # Diversity score (simplified async version)
         tx_cnt = (await session.execute(text("SELECT COUNT(*) FROM valuegate_transactions WHERE (buyer_uuid=:u OR seller_uuid=:u) AND status='settled'"), {"u": agent_uuid})).scalar() or 0
