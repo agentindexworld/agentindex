@@ -1038,3 +1038,8 @@ async def health():
             db_ok = True
         except: db_ok = False
     return {"status": "healthy" if db_ok else "degraded", "version": "1.0.0", "db": "ok" if db_ok else "error"}
+
+
+@router.get("/api/trustgate/{name}/gate")
+async def trustgate_gate_redirect(name: str):
+    return {"error": "Endpoint moved", "message": "Use /api/gate/{name} instead", "correct_url": "/api/gate/" + name}
