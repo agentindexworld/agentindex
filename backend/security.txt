@@ -1,0 +1,4 @@
+Contact: mailto:comallagency@gmail.com
+Preferred-Languages: en
+Canonical: https://agentindex.world/.well-known/security.txt
+Policy: https://agentindex.world/SECURITY.md

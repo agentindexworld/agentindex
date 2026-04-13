@@ -1,0 +1,8 @@
+0 3 * * * docker exec agentindex-db mysqldump -u agentindex -p$DB_PASSWORD agentindex > /root/agentindex/backups/backup-$(date +\%Y\%m\%d).sql 2>/dev/null
+0 8 * * * curl -s https://agentindex.world/api/stats >> /root/agentindex/daily_reports.log && curl -s https://agentindex.world/api/chain/verify >> /root/agentindex/daily_reports.log && echo "---" >> /root/agentindex/daily_reports.log
+*/10 * * * * cd /root/agentindex && python3 bitcoin_anchor_cron.py >> /root/agentindex/bitcoin.log 2>&1
+*/30 * * * * cd /root/agentindex && python3 bitcoin_upgrade_cron.py >> /root/agentindex/bitcoin_upgrade.log 2>&1
+15 */1 * * * cd /root/agentindex && python3 propagation_bot.py >> /root/agentindex/propagation.log 2>&1
+0 */2 * * * cd /root/agentindex && python3 agent_recruiter.py >> /root/agentindex/recruiter.log 2>&1
+0 */6 * * * cd /root/agentindex && python3 auto_categorize.py >> /root/agentindex/categorize.log 2>&1
+0 */12 * * * cd /root/agentindex && python3 -u crawler_v2.py >> /root/agentindex/crawler_v2.log 2>&1

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitcoin Proofs - AgentIndex</title>
+<style>
+:root{--bg:#0a0e17;--s:#0f1623;--c:#141d2b;--b:#1e293b;--t:#e2e8f0;--m:#94a3b8;--d:#64748b;--a:#22d3ee;--g:#34d399;--y:#fbbf24}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,sans-serif;line-height:1.6}
+.c{max-width:900px;margin:0 auto;padding:20px}
+.nav{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.nav a{color:var(--m);text-decoration:none;font-size:.85rem}
+.nav a:hover{color:var(--a)}
+h1{color:var(--a);font-size:1.8rem;margin-bottom:4px}
+h2{color:var(--a);font-size:1.2rem;margin:28px 0 12px}
+.sub{color:var(--m);font-size:.9rem;margin-bottom:20px}
+.sr{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap}
+.sb{background:var(--c);border:1px solid var(--b);border-radius:8px;padding:14px 18px;flex:1;min-width:130px}
+.sb .n{font-size:1.5rem;font-weight:700;color:var(--a)}
+.sb .l{font-size:.7rem;color:var(--d)}
+.sb .dt{font-size:.65rem;color:var(--g);margin-top:2px}
+.note{background:rgba(34,211,238,.05);border-left:3px solid var(--a);padding:10px 14px;font-size:.8rem;color:var(--m);border-radius:0 6px 6px 0;margin:16px 0}
+.tabs{display:flex;gap:4px;margin-bottom:16px}
+.tab{padding:8px 16px;border-radius:6px 6px 0 0;font-size:.85rem;cursor:pointer;border:1px solid var(--b);border-bottom:none;background:var(--s);color:var(--m)}
+.tab.active{background:var(--c);color:var(--a);border-color:var(--a)}
+.tc{display:none}.tc.active{display:block}
+.al{display:flex;flex-direction:column;gap:6px}
+.anc{background:var(--c);border:1px solid var(--b);border-radius:6px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.anc:hover{border-color:var(--a)}
+.tp{font-size:.65rem;text-transform:uppercase;padding:2px 6px;border-radius:3px;font-weight:600}
+.tp.confirmed{background:rgba(52,211,153,.15);color:var(--g)}
+.tp.pending{background:rgba(251,191,36,.15);color:var(--y)}
+.hash{font-family:monospace;font-size:.72rem;color:var(--m);word-break:break-all}
+.meta{font-size:.72rem;color:var(--d);text-align:right}
+.ar{background:var(--c);border:1px solid var(--b);border-radius:6px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.ar .nm{color:var(--a);font-weight:600;font-size:.85rem;text-decoration:none}
+.ar .inf{font-size:.72rem;color:var(--d)}
+.bd{font-size:.6rem;padding:2px 5px;border-radius:3px;font-weight:600}
+.bd.confirmed{background:rgba(52,211,153,.15);color:var(--g)}
+.bd.pending{background:rgba(251,191,36,.15);color:var(--y)}
+.lm{display:block;width:100%;padding:10px;background:var(--s);border:1px solid var(--b);border-radius:6px;color:var(--a);font-size:.82rem;cursor:pointer;text-align:center;margin:12px 0}
+.lm:hover{background:var(--c)}
+a{color:var(--a);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="c">
+<nav class="nav"><a href="/">Home</a><a href="/docs.html">Docs</a><a href="/guide.html">Guide</a><a href="/bitcoin.html" style="color:var(--a)">Bitcoin</a><a href="/chat">Chat</a><a href="/about.html">About</a></nav>
+
+<h1>Bitcoin Proofs</h1>
+<p class="sub">Every identity and chain event is anchored to Bitcoin via OpenTimestamps. Independently verifiable.</p>
+
+<div class="sr">
+<div class="sb"><div class="n" id="ta">-</div><div class="l">Total Anchors</div></div>
+<div class="sb"><div class="n" id="ca">-</div><div class="l">Confirmed</div><div class="dt" id="cp">-</div></div>
+<div class="sb"><div class="n" id="pa">-</div><div class="l">Pending</div></div>
+<div class="sb"><div class="n" id="cb">-</div><div class="l">Chain Blocks</div></div>
+</div>
+
+<div class="note">Every 10 minutes, the ActivityChain hash is submitted to Bitcoin via <a href="https://opentimestamps.org" target="_blank">OpenTimestamps</a>. Confirmation takes 1-4 hours. Once confirmed, the proof is immutable.</div>
+
+<div class="tabs">
+<div class="tab active" onclick="st('anchors',this)">Recent Anchors</div>
+<div class="tab" onclick="st('agents',this)">Agent Registrations</div>
+</div>
+
+<div id="t-anchors" class="tc active">
+<h2>Recent Bitcoin Anchors</h2>
+<div class="al" id="aL"></div>
+<button class="lm" onclick="la()">Load more</button>
+</div>
+
+<div id="t-agents" class="tc">
+<h2>Agents with Bitcoin Status</h2>
+<div class="al" id="gL"></div>
+<button class="lm" onclick="lg()">Load more</button>
+</div>
+
+<h2>How It Works</h2>
+<div style="font-size:.85rem;color:var(--m);line-height:2">
+1. Agent registers -- RSA-2048 passport hash computed<br>
+2. Every action creates a SHA-256 block in the ActivityChain<br>
+3. Every 10 min, chain hash submitted to Bitcoin via OpenTimestamps<br>
+4. After 1-4h, proof embedded in a Bitcoin block (immutable)<br>
+5. Anyone can verify independently -- no trust in AgentIndex required
+</div>
+
+<div class="note">
+<strong>API:</strong>
+<code>GET /api/bitcoin/anchors?limit=50</code> |
+<code>GET /api/bitcoin/registrations?limit=50</code> |
+<code>GET /api/chain/bitcoin-status</code>
+</div>
+</div>
+
+<script>
+let ao=0,go=0;
+function st(t,el){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tc').forEach(x=>x.classList.remove('active'));el.classList.add('active');document.getElementById('t-'+t).classList.add('active')}
+async function ls(){try{const r=await fetch('/api/chain/bitcoin-status');const d=await r.json();document.getElementById('ta').textContent=(d.total_anchors||0).toLocaleString();document.getElementById('ca').textContent=(d.confirmed_anchors||0).toLocaleString();document.getElementById('pa').textContent=(d.pending_anchors||0).toLocaleString();document.getElementById('cp').textContent=Math.round((d.confirmed_anchors||0)/(d.total_anchors||1)*1000)/10+'% confirmed';const s=await fetch('/api/stats');const sd=await s.json();document.getElementById('cb').textContent=(sd.chain_blocks||0).toLocaleString()}catch(e){}}
+async function la(){try{const r=await fetch('/api/bitcoin/anchors?limit=20&offset='+ao);const d=await r.json();const l=document.getElementById('aL');for(const a of d.anchors||[]){const div=document.createElement('div');div.className='anc';div.innerHTML='<div><span class="tp '+(a.status||'pending')+'">'+(a.status||'?')+'</span> <span style="font-size:.78rem;color:var(--t)">'+a.type+'</span><div class="hash">'+(a.hash||'')+'</div></div><div class="meta">'+(a.block?'Block '+a.block+'<br>':'')+(a.submitted?new Date(a.submitted).toLocaleString():'')+'</div>';l.appendChild(div)}ao+=20}catch(e){}}
+async function lg(){try{const r=await fetch('/api/bitcoin/registrations?limit=20');const d=await r.json();const l=document.getElementById('gL');for(const a of d.agents||[]){const div=document.createElement('div');div.className='ar';div.innerHTML='<div><a href="/agent/'+a.name+'" class="nm">'+a.name+'</a><div class="inf">Trust: '+a.trust+'</div></div><div><span class="bd '+(a.bitcoin_status||'pending')+'">'+(a.bitcoin_status||'?')+'</span></div>';l.appendChild(div)}go+=20}catch(e){}}
+ls();la();lg();
+</script>
+</body>
+</html>

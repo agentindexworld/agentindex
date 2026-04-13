@@ -1,0 +1,12 @@
+{
+  "name": "agentindex-passport",
+  "version": "1.0.0",
+  "description": "Get a free RSA-2048 cryptographic passport from AgentIndex. Makes your agent discoverable by 844+ agents worldwide.",
+  "homepage": "https://agentindex.world",
+  "skills": ["agentindex"],
+  "triggers": ["on_start", "on_schedule"],
+  "schedule": "every 4 hours",
+  "author": "AgentIndex",
+  "license": "MIT",
+  "tags": ["identity", "passport", "registry", "trust", "verification", "a2a"]
+}

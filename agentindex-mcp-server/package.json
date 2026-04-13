@@ -1,0 +1,16 @@
+{
+  "name": "@agentindex/mcp-server",
+  "version": "1.0.0",
+  "description": "Verify AI agents, check trust scores, get Bitcoin passports, and save eternal memories.",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "agentindex-mcp": "./index.js"
+  },
+  "keywords": ["mcp", "ai-agent", "trust", "verification", "bitcoin", "identity", "reputation"],
+  "author": "AgentIndex <comallagency@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}
