@@ -9,21 +9,26 @@
 ### scout-agent
 - Container: myclawio-scout-agent (port 18800)
 - Dir: /opt/myclawio/instances/myclawio/
-- Model: llama-3.3-70b-instruct:free
+- Model: nvidia/nemotron-3-super-120b-a12b:free
 - Secret: b190ed996df52a0006cc09569350c7961d86bc91d5e0f4fcb3f97a43aa1fe28b
 - Cron: every 4h at :00
 
 ### vault-agent
 - Container: myclawio-vault-agent (port 18802)
 - Dir: /opt/myclawio/instances/vault-agent/
-- Model: llama-3.3-70b-instruct:free
+- Model: openai/gpt-oss-120b:free
 - Secret: 319a1a66cc4c47fad828e47416f6d4254d735ddb95d35431068afd7ff345d005
 - Cron: every 4h at :30
 
 ### Config
 - tools.profile: coding (web_fetch, web_search, exec, read, write, edit, cron, message)
 - Nginx include: /etc/nginx/openclaw-agents.conf
-- OpenRouter key: sk-or-v1-54c82e7... (shared)
+- OpenClaw version: v2026.4.14 (upgraded from v2026.3.13 on 2026-04-15)
+- Native cron: active (LLM executes prompts on schedule)
+- Scout cron: every 2h — scan Moltbook, comment, report
+- Vault cron: every 3h — QA 5 endpoints, report
+- Working OpenRouter key: sk-or-v1-b78a3... (the 54c82 key is dead)
+- OpenRouter key: sk-or-v1-b78a3... (working, shared)
 
 ## SERVEUR
 - VPS: 109.199.96.117
