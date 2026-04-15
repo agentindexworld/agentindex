@@ -5052,6 +5052,22 @@ try:
 except Exception as e:
     print(f"ValueGate error: {e}")
 
+# AgentMail
+try:
+    from agent_mail import router as mail_router
+    app.include_router(mail_router)
+    print("AgentMail routes loaded")
+except Exception as e:
+    print(f"AgentMail error: {e}")
+
+# AgentVault E2E Encrypted Memory
+try:
+    from agent_vault import router as vault_router
+    app.include_router(vault_router)
+    print("AgentVault routes loaded")
+except Exception as e:
+    print(f"AgentVault error: {e}")
+
 # Local Security Scanner Script
 @app.get("/security-check.sh")
 async def security_check_script():
