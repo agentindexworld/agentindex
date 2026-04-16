@@ -1,5 +1,5 @@
 # AgentIndex — Contexte Permanent
-# Dernière mise à jour : 15 avril 2026
+# Dernière mise à jour : 16 avril 2026
 
 ## OPENCLAW AGENTS — WEB UI ACCESS
 - Scout: https://agentindex.world/openclaw/scout/?token=96df0c73452417691259c683a54ee46d628a334937d34af228949132ac27428e
@@ -16,7 +16,7 @@
 ### vault-agent
 - Container: myclawio-vault-agent (port 18802)
 - Dir: /opt/myclawio/instances/vault-agent/
-- Model: openai/gpt-oss-120b:free
+- Model: nvidia/nemotron-3-super-120b-a12b:free
 - Secret: 319a1a66cc4c47fad828e47416f6d4254d735ddb95d35431068afd7ff345d005
 - Cron: every 4h at :30
 
@@ -42,3 +42,14 @@ POST /api/vault/store, GET /api/vault/get/{key}, GET /api/vault/keys
 GET /api/vault/merkle, GET /api/vault/verify/{key}, GET /api/vault/export
 GET /api/vault/stats, GET /api/vault/privacy
 DELETE /api/vault/{key}, POST /api/vault/delete/{key}
+
+
+## DB TABLE NAMES (correct)
+- Agents: agents (28,891 rows)
+- Chain: activity_chain (55,852 rows) — NOT chain_events
+- Bitcoin: bitcoin_anchors (4,393 rows)
+- Mail: agent_messages (83 rows)
+- Chat: chat_messages (660 rows)
+- Vault: agent_vault (46 rows)
+- Security scans: agent_security_scans (320,319 rows)
+- Access logs: access_logs (201,695 rows)

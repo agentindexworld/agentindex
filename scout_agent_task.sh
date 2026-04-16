@@ -3,7 +3,7 @@
 SCOUT_SECRET=$(grep SCOUT_AGENT_SECRET /root/agentindex/.mail_secrets | cut -d= -f2)
 MOLTBOOK_KEY=$(grep MOLTBOOK_API_KEY /root/agentindex/.env | cut -d= -f2)
 TS=$(date -u +%Y-%m-%dT%H:%M:%S)
-HOUR=$(date -u +%H)
+HOUR=$((10#$(date -u +%H)))
 DAY=$(date -u +%j)
 
 # Scan Moltbook ourselves (fast, no LLM needed)

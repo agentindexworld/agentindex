@@ -61,7 +61,7 @@ def register_agent(name, description, source, capabilities=None, url=None):
 
     # Rate limit: 0.5s between registrations to avoid 503
     import time as _time
-    _time.sleep(0.5)
+    import time as _time; _time.sleep(2)
 
     try:
         payload = {
@@ -141,7 +141,7 @@ def crawl_mcp_registries():
 
             if page >= total_pages:
                 break
-            time.sleep(0.5)
+            time.sleep(2)
     except Exception as e:
         print("  Smithery error: {}".format(e), flush=True)
 
