@@ -131,17 +131,17 @@ async def claim_secret(req: ClaimRequest):
     from database import async_session
     async with async_session() as session:
         r = (await session.execute(
-            text("SELECT uuid, name, url, agent_secret_hash FROM agents WHERE name = :n"),
+            text("SELECT uuid, name, endpoint_url, agent_secret_hash FROM agents WHERE name = :n"),
             {"n": req.agent_name}
         )).fetchone()
         if not r:
             raise HTTPException(404, {"error": "not_found", "message": f"Agent not registered. POST /api/register first."})
 
-        agent_uuid, agent_name, agent_url, _ = r
+        agent_uuid, agent_name, endpoint_url, _ = r
 
-        if agent_url and agent_url.strip():
+        if endpoint_url and endpoint_url.strip():
             norm = lambda u: u.rstrip("/").lower().replace("https://", "").replace("http://", "")
-            if req.agent_url and norm(req.agent_url) != norm(agent_url):
+            if req.agent_url and norm(req.agent_url) != norm(endpoint_url):
                 raise HTTPException(403, {"error": "url_mismatch"})
             elif not req.agent_url:
                 raise HTTPException(400, {"error": "url_required", "message": "Provide agent_url to verify ownership."})
